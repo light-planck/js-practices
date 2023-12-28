@@ -1,7 +1,7 @@
 import minimist from "minimist";
 
-import pkg from "enquirer";
-const { Select } = pkg;
+import enquirer from "enquirer";
+const { Select } = enquirer;
 
 export class CLIHandler {
   #app;
@@ -38,7 +38,19 @@ export class CLIHandler {
 
     // 削除
     else if (this.#args.d) {
-      this.#app.delete(0);
+      const prompt = new Select({
+        name: "delete",
+        message: "Choose a note you want to delete:",
+        choices: this.#app.preview(),
+        result() {
+          return this.focused;
+        },
+      });
+
+      prompt.run().then((answer) => {
+        const index = answer.index;
+        this.#app.delete(index);
+      });
     }
 
     // 追加
