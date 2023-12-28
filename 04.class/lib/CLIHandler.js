@@ -26,16 +26,13 @@ export class CLIHandler {
         message: "Choose a note you want to see:",
         choices: this.#app.preview(),
         result() {
-          return this.focused.id;
+          return this.focused;
         },
       });
 
-      prompt.on("select", (choice) => {
-        console.log(this.#app.refer(choice.index));
-      });
-
       prompt.run().then((answer) => {
-        console.log(answer);
+        const index = answer.index;
+        console.log(this.#app.refer(index));
       });
     }
 
