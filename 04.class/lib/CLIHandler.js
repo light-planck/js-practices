@@ -5,10 +5,12 @@ const { Select } = enquirer;
 
 export class CLIHandler {
   #app;
+  #messages;
   #args;
 
-  constructor(app) {
+  constructor(app, messages) {
     this.#app = app;
+    this.#messages = messages;
   }
 
   execute() {
@@ -23,7 +25,7 @@ export class CLIHandler {
     else if (this.#args.r) {
       const prompt = new Select({
         name: "refer",
-        message: "Choose a note you want to see:",
+        message: this.#messages.refer,
         choices: this.#app.preview(),
         result() {
           return this.focused;
@@ -40,7 +42,7 @@ export class CLIHandler {
     else if (this.#args.d) {
       const prompt = new Select({
         name: "delete",
-        message: "Choose a note you want to delete:",
+        messages: this.#messages.delete,
         choices: this.#app.preview(),
         result() {
           return this.focused;
