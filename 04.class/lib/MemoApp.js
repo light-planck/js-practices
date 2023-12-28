@@ -1,14 +1,20 @@
 import fs from "fs";
 
-export class Memos {
+import { Memo } from "./Memo.js";
+
+export class MemoApp {
   #filename;
 
   constructor(filename) {
     this.#filename = filename;
   }
 
-  add(memo) {
-    this.#writeFile([...this.list(), memo]);
+  add(text) {
+    const memo = new Memo(text);
+    this.#writeFile([
+      ...this.list(),
+      { title: memo.title, content: memo.content },
+    ]);
   }
 
   list() {
@@ -17,18 +23,21 @@ export class Memos {
       return JSON.parse(data);
     } catch (err) {
       if (err.code === "ENOENT") {
-        // ファイルが存在しない場合はファイルを作成し、空の配列を返す
-        this.#writeFile(JSON.stringify([]));
+        // ファイルが存在しない場合は、空の配列を返す
         return [];
       } else {
-        // その他のエラーはそのままスローする
         throw err;
       }
     }
   }
 
+  // タイトルだけを取得する
+  preview() {
+    return this.list().map((memo) => memo.title);
+  }
+
   refer(index) {
-    return this.list()[index];
+    return this.list()[index].content;
   }
 
   delete(index) {
