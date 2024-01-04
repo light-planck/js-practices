@@ -11,11 +11,10 @@ export class CLIHandler {
   constructor(app, messages) {
     this.#app = app;
     this.#messages = messages;
+    this.#parseOptions();
   }
 
   execute() {
-    this.#parseArgs();
-
     // 一覧
     if (this.#args.l) {
       this.#app.list().forEach((item) => console.log(item.title));
@@ -63,7 +62,7 @@ export class CLIHandler {
     }
   }
 
-  #parseArgs() {
+  #parseOptions() {
     this.#args = minimist(process.argv.slice(2));
   }
 }
