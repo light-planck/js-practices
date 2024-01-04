@@ -12,7 +12,7 @@ const main = () => {
     .set("year", options.y)
     .set("month", options.m - 1);
 
-  console.log("       " + date.format("M月 YYYY"));
+  console.log(`       ${date.format("M月 YYYY")}`);
 
   console.log(WEEK_DAYS.join(" "));
 
