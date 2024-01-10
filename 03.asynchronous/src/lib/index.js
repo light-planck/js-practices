@@ -32,3 +32,8 @@ export const eachAsPromise = (db, query, params = []) =>
       },
     );
   });
+
+export const handleErrors = (err, errorType) => {
+  if (err.message.includes(errorType)) console.error(err.message);
+  else throw err;
+};
