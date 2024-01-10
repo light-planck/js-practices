@@ -4,18 +4,31 @@ export const runAsPromise = (db, query, params = []) =>
       if (err) {
         reject(err);
       } else {
-        resolve(this.lastID);
+        resolve(this);
       }
     });
   });
 
-export const getAsPromise = (db, query, params = []) =>
+export const eachAsPromise = (db, query, params = []) =>
   new Promise((resolve, reject) => {
-    db.get(query, params, (err, rows) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(rows);
-      }
-    });
+    const rows = [];
+
+    db.each(
+      query,
+      params,
+      (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          rows.push(row);
+        }
+      },
+      (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      },
+    );
   });
