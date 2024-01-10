@@ -1,30 +1,21 @@
 import sqlite3 from "sqlite3";
-import { getAsPromise, runAsPromise } from "../../lib/index.js";
+import { runAsPromise, eachAsPromise } from "../../lib/index.js";
+import {
+  CREATE_BOOKS_TABLE,
+  DROP_BOOKS_TABLE,
+  INSERT_BOOK,
+  SELECT_BOOKS_BY_AUTHOR,
+} from "../../sql-queries/index.js";
 
 const main = () => {
   const db = new sqlite3.Database(":memory:");
 
-  runAsPromise(
-    db,
-    "CREATE TABLE IF NOT EXISTS books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
-  ).then(() => {
-    return runAsPromise(db, "INSERT INTO books (title) VALUES (?)", [null])
-      .catch((err) => {
-        console.log(err);
-      })
-      .then(() => {
-        return getAsPromise(
-          db,
-          "SELECT * FROM books WHERE author = (?)",
-          "steve",
-        ).catch((err) => {
-          console.log(err);
-        });
-      })
-      .then(() => {
-        return runAsPromise(db, "DROP TABLE books");
-      });
-  });
+  runAsPromise(db, CREATE_BOOKS_TABLE)
+    .then(() => runAsPromise(db, INSERT_BOOK, [null]))
+    .catch((err) => console.log(err.message))
+    .then(() => eachAsPromise(db, SELECT_BOOKS_BY_AUTHOR), ["steve"])
+    .catch((err) => console.log(err.message))
+    .finally(() => runAsPromise(db, DROP_BOOKS_TABLE));
 };
 
 main();
