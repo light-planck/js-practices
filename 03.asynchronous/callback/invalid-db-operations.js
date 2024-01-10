@@ -7,10 +7,10 @@ const main = () => {
     "CREATE TABLE IF NOT EXISTS books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
     () => {
       db.run("INSERT INTO books (title) VALUES (?)", null, (err) => {
-        console.log(err);
+        console.error(err.message);
 
         db.run("SELECT * FROM books WHERE author = (?)", "steve", (err) => {
-          console.log(err);
+          console.error(err.message);
 
           db.run("DROP TABLE books");
         });
