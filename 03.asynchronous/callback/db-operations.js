@@ -9,11 +9,15 @@ const main = () => {
       db.run("INSERT INTO books (title) VALUES (?)", "Ruby入門", function () {
         console.log(this.lastID);
 
-        db.each("SELECT * FROM books", (_, row) => {
-          console.log(row);
-
-          db.run("DROP TABLE books");
-        });
+        db.each(
+          "SELECT * FROM books",
+          (_, row) => {
+            console.log(row);
+          },
+          () => {
+            db.run("DROP TABLE books");
+          },
+        );
       });
     },
   );
