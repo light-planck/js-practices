@@ -15,12 +15,11 @@ const main = () => {
     .then(() => runAsPromise(db, INSERT_BOOK_SQL, [BOOK.TITLE]))
     .then((result) => {
       console.log(result.lastID);
-      return eachAsPromise(db, SELECT_BOOKS_SQL);
+      return eachAsPromise(db, SELECT_BOOKS_SQL, [], (row) => {
+        console.log(row);
+      });
     })
-    .then((rows) => {
-      rows.forEach((row) => console.log(row));
-      return runAsPromise(db, DROP_BOOKS_TABLE_SQL);
-    });
+    .then(() => runAsPromise(db, DROP_BOOKS_TABLE_SQL));
 };
 
 main();

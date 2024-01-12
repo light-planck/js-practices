@@ -9,10 +9,8 @@ export const runAsPromise = (db, query, params = []) =>
     });
   });
 
-export const eachAsPromise = (db, query, params = []) =>
+export const eachAsPromise = (db, query, params = [], callback = () => {}) =>
   new Promise((resolve, reject) => {
-    const rows = [];
-
     db.each(
       query,
       params,
@@ -20,14 +18,14 @@ export const eachAsPromise = (db, query, params = []) =>
         if (err) {
           reject(err);
         } else {
-          rows.push(row);
+          callback(row);
         }
       },
       (err) => {
         if (err) {
           reject(err);
         } else {
-          resolve(rows);
+          resolve();
         }
       },
     );

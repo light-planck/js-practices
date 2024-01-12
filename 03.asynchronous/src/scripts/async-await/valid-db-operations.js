@@ -16,8 +16,9 @@ const main = async () => {
   const result = await runAsPromise(db, INSERT_BOOK_SQL, [BOOK.TITLE]);
   console.log(result.lastID);
 
-  const rows = await eachAsPromise(db, SELECT_BOOKS_SQL);
-  rows.forEach((row) => console.log(row));
+  await eachAsPromise(db, SELECT_BOOKS_SQL, [], (row) => {
+    console.log(row);
+  });
 
   await runAsPromise(db, DROP_BOOKS_TABLE_SQL);
 };
