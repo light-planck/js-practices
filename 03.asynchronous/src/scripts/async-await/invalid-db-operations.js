@@ -8,6 +8,8 @@ import {
   DROP_BOOKS_TABLE_SQL,
   INSERT_BOOK_SQL,
   SELECT_BOOKS_BY_AUTHOR_SQL,
+  BOOKS_TITLE_NOT_NULL_CONSTRAINT_ERROR,
+  NO_SUCH_COLUMN_AUTHOR_ERROR,
 } from "../../lib/index.js";
 
 const main = async () => {
@@ -18,13 +20,13 @@ const main = async () => {
   try {
     await runAsPromise(db, INSERT_BOOK_SQL, null);
   } catch (err) {
-    handleErrors(err, "SQLITE_CONSTRAINT");
+    handleErrors(err, BOOKS_TITLE_NOT_NULL_CONSTRAINT_ERROR);
   }
 
   try {
     await eachAsPromise(db, SELECT_BOOKS_BY_AUTHOR_SQL, BOOK.AUTHOR);
   } catch (err) {
-    handleErrors(err, "SQLITE_ERROR");
+    handleErrors(err, NO_SUCH_COLUMN_AUTHOR_ERROR);
   }
 
   await runAsPromise(db, DROP_BOOKS_TABLE_SQL);
