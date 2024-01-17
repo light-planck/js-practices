@@ -14,10 +14,10 @@ const main = async () => {
 
   await runAsPromise(db, CREATE_BOOKS_TABLE_SQL);
 
-  const result = await runAsPromise(db, INSERT_BOOK_SQL, [BOOK.TITLE]);
+  const result = await runAsPromise(db, INSERT_BOOK_SQL, BOOK.TITLE);
   console.log(result.lastID);
 
-  await eachAsPromise(db, SELECT_BOOKS_SQL, [], (row) => {
+  await eachAsPromise(db, SELECT_BOOKS_SQL, (row) => {
     console.log(row);
   });
 

@@ -1,4 +1,4 @@
-export const runAsPromise = (db, query, params = []) =>
+export const runAsPromise = (db, query, ...params) =>
   new Promise((resolve, reject) => {
     db.run(query, params, function (err) {
       if (err) {
@@ -9,8 +9,13 @@ export const runAsPromise = (db, query, params = []) =>
     });
   });
 
-export const eachAsPromise = (db, query, params = [], callback = () => {}) =>
-  new Promise((resolve, reject) => {
+export const eachAsPromise = (db, query, ...params) => {
+  const callback =
+    params.length > 0 && typeof params.slice(-1)[0] === "function"
+      ? params.pop()
+      : () => {};
+
+  return new Promise((resolve, reject) => {
     db.each(
       query,
       params,
@@ -30,3 +35,4 @@ export const eachAsPromise = (db, query, params = [], callback = () => {}) =>
       },
     );
   });
+};

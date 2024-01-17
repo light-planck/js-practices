@@ -12,10 +12,10 @@ const main = () => {
   const db = new sqlite3.Database(":memory:");
 
   runAsPromise(db, CREATE_BOOKS_TABLE_SQL)
-    .then(() => runAsPromise(db, INSERT_BOOK_SQL, [BOOK.TITLE]))
+    .then(() => runAsPromise(db, INSERT_BOOK_SQL, BOOK.TITLE))
     .then((result) => {
       console.log(result.lastID);
-      return eachAsPromise(db, SELECT_BOOKS_SQL, [], (row) => {
+      return eachAsPromise(db, SELECT_BOOKS_SQL, (row) => {
         console.log(row);
       });
     })

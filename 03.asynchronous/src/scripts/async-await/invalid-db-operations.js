@@ -16,13 +16,13 @@ const main = async () => {
   await runAsPromise(db, CREATE_BOOKS_TABLE_SQL);
 
   try {
-    await runAsPromise(db, INSERT_BOOK_SQL, [null]);
+    await runAsPromise(db, INSERT_BOOK_SQL, null);
   } catch (err) {
     handleErrors(err, "SQLITE_CONSTRAINT");
   }
 
   try {
-    await eachAsPromise(db, SELECT_BOOKS_BY_AUTHOR_SQL, [BOOK.AUTHOR]);
+    await eachAsPromise(db, SELECT_BOOKS_BY_AUTHOR_SQL, BOOK.AUTHOR);
   } catch (err) {
     handleErrors(err, "SQLITE_ERROR");
   }
