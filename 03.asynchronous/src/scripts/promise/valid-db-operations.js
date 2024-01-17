@@ -6,7 +6,7 @@ import {
   DROP_BOOKS_TABLE_SQL,
   INSERT_BOOK_SQL,
   SELECT_BOOKS_SQL,
-} from "../../constants/index.js";
+} from "../../lib/index.js";
 
 const main = () => {
   const db = new sqlite3.Database(":memory:");

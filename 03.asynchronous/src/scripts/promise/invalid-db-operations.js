@@ -1,12 +1,15 @@
 import sqlite3 from "sqlite3";
-import { runAsPromise, eachAsPromise } from "../../lib/index.js";
+import {
+  runAsPromise,
+  eachAsPromise,
+  SELECT_BOOKS_BY_AUTHOR_SQL,
+} from "../../lib/index.js";
 import {
   BOOK,
   CREATE_BOOKS_TABLE_SQL,
   DROP_BOOKS_TABLE_SQL,
   INSERT_BOOK_SQL,
-  SELECT_BOOKS_SQL,
-} from "../../constants/index.js";
+} from "../../lib/index.js";
 
 const main = () => {
   const db = new sqlite3.Database(":memory:");
@@ -16,14 +19,12 @@ const main = () => {
     .catch((err) => {
       console.error(err.message);
     })
+    .finally(() => eachAsPromise(db, SELECT_BOOKS_BY_AUTHOR_SQL, [BOOK.AUTHOR]))
+    .catch((err) => {
+      console.error(err.message);
+    })
     .finally(() => {
-      eachAsPromise(db, SELECT_BOOKS_SQL, [BOOK.AUTHOR])
-        .catch((err) => {
-          console.error(err.message);
-        })
-        .finally(() => {
-          runAsPromise(db, DROP_BOOKS_TABLE_SQL);
-        });
+      runAsPromise(db, DROP_BOOKS_TABLE_SQL);
     });
 };
 

@@ -1,12 +1,13 @@
 import sqlite3 from "sqlite3";
-import { runAsPromise, eachAsPromise } from "../../lib/index.js";
 import {
+  runAsPromise,
+  eachAsPromise,
   BOOK,
   CREATE_BOOKS_TABLE_SQL,
   DROP_BOOKS_TABLE_SQL,
   INSERT_BOOK_SQL,
   SELECT_BOOKS_SQL,
-} from "../../constants/index.js";
+} from "../../lib/index.js";
 
 const main = async () => {
   const db = new sqlite3.Database(":memory:");
