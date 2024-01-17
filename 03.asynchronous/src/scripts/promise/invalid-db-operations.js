@@ -3,12 +3,10 @@ import {
   runAsPromise,
   eachAsPromise,
   SELECT_BOOKS_BY_AUTHOR_SQL,
-} from "../../lib/index.js";
-import {
-  BOOK,
   CREATE_BOOKS_TABLE_SQL,
-  DROP_BOOKS_TABLE_SQL,
   INSERT_BOOK_SQL,
+  BOOK,
+  DROP_BOOKS_TABLE_SQL,
 } from "../../lib/index.js";
 
 const main = () => {
