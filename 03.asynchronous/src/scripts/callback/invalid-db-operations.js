@@ -19,7 +19,9 @@ const main = () => {
         BOOK.AUTHOR,
         () => {},
         (err) => {
-          if (err) console.error(err.message);
+          if (err) {
+            console.error(err.message);
+          }
           db.run(DROP_BOOKS_TABLE_SQL);
         },
       );
