@@ -15,7 +15,7 @@ const main = () => {
     .then(() => runAsPromise(db, INSERT_BOOK_SQL, BOOK.TITLE))
     .then((result) => {
       console.log(result.lastID);
-      return eachAsPromise(db, SELECT_BOOKS_SQL, (row) => {
+      return eachAsPromise(db, SELECT_BOOKS_SQL, (_, row) => {
         console.log(row);
       });
     })

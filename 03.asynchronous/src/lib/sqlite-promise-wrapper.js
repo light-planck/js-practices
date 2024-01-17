@@ -23,14 +23,14 @@ export const eachAsPromise = (db, query, ...params) => {
         if (err) {
           reject(err);
         } else {
-          callback(row);
+          callback(err, row);
         }
       },
-      (err) => {
+      (err, counts) => {
         if (err) {
           reject(err);
         } else {
-          resolve();
+          resolve(counts);
         }
       },
     );
