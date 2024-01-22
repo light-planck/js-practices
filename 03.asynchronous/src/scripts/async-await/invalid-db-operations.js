@@ -8,9 +8,8 @@ import {
   DROP_BOOKS_TABLE_SQL,
   INSERT_BOOK_SQL,
   SELECT_BOOKS_BY_AUTHOR_SQL,
-  BOOKS_TITLE_NOT_NULL_CONSTRAINT_ERROR,
-  NO_SUCH_COLUMN_AUTHOR_ERROR,
 } from "../../lib/index.js";
+import { SQLITE_CONSTRAINT, SQLITE_ERROR } from "../../lib/error-codes.js";
 
 const main = async () => {
   const db = new sqlite3.Database(":memory:");
@@ -20,13 +19,13 @@ const main = async () => {
   try {
     await runAsPromise(db, INSERT_BOOK_SQL, null);
   } catch (err) {
-    handleErrors(err, BOOKS_TITLE_NOT_NULL_CONSTRAINT_ERROR);
+    handleErrors(err, SQLITE_CONSTRAINT);
   }
 
   try {
     await eachAsPromise(db, SELECT_BOOKS_BY_AUTHOR_SQL, BOOK.AUTHOR);
   } catch (err) {
-    handleErrors(err, NO_SUCH_COLUMN_AUTHOR_ERROR);
+    handleErrors(err, SQLITE_ERROR);
   }
 
   await runAsPromise(db, DROP_BOOKS_TABLE_SQL);
