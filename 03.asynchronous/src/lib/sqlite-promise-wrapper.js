@@ -26,11 +26,11 @@ export const eachAsPromise = (db, query, ...params) => {
           callback(err, row);
         }
       },
-      (err, counts) => {
+      (err, count) => {
         if (err) {
           reject(err);
         } else {
-          resolve(counts);
+          resolve(count);
         }
       },
     );
