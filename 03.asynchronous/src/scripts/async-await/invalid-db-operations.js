@@ -1,15 +1,17 @@
 import sqlite3 from "sqlite3";
+import { SQLITE_CONSTRAINT, SQLITE_ERROR } from "../../lib/error-codes.js";
 import {
   eachAsPromise,
-  handleErrors,
   runAsPromise,
-  BOOK,
+} from "../../lib/sqlite-promise-wrapper.js";
+import {
   CREATE_BOOKS_TABLE_SQL,
   DROP_BOOKS_TABLE_SQL,
   INSERT_BOOK_SQL,
   SELECT_BOOKS_BY_AUTHOR_SQL,
-} from "../../lib/index.js";
-import { SQLITE_CONSTRAINT, SQLITE_ERROR } from "../../lib/error-codes.js";
+} from "../../lib/sql-books-queries.js";
+import { handleErrors } from "../../lib/handle-errors.js";
+import { BOOK } from "../../lib/books.js";
 
 const main = async () => {
   const db = new sqlite3.Database(":memory:");
