@@ -19,7 +19,7 @@ const main = () => {
         console.log(row);
       });
     })
-    .finally(() => runAsPromise(db, DROP_BOOKS_TABLE_SQL));
+    .then(() => runAsPromise(db, DROP_BOOKS_TABLE_SQL));
 };
 
 main();
