@@ -12,7 +12,9 @@ const main = () => {
 
   db.run(CREATE_BOOKS_TABLE_SQL, () => {
     db.run(INSERT_BOOK_SQL, null, (err) => {
-      console.error(err.message);
+      if (err) {
+        console.error(err.message);
+      }
 
       db.each(
         SELECT_BOOKS_BY_AUTHOR_SQL,
