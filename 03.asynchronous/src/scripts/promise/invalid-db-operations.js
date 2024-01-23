@@ -19,11 +19,11 @@ const main = () => {
     .catch((err) => {
       console.error(err.message);
     })
-    .finally(() => eachAsPromise(db, SELECT_BOOKS_BY_AUTHOR_SQL, BOOK.AUTHOR))
+    .then(() => eachAsPromise(db, SELECT_BOOKS_BY_AUTHOR_SQL, BOOK.AUTHOR))
     .catch((err) => {
       console.error(err.message);
     })
-    .finally(() => {
+    .then(() => {
       runAsPromise(db, DROP_BOOKS_TABLE_SQL);
     });
 };
