@@ -9,11 +9,10 @@ export const runAsPromise = (db, query, ...params) =>
     });
   });
 
-export const eachAsPromise = (db, query, ...params) => {
+export const eachAsPromise = (db, query, ...args) => {
+  const params = args;
   const callback =
-    params.length > 0 && typeof params.slice(-1)[0] === "function"
-      ? params.pop()
-      : () => {};
+    typeof args[args.length - 1] === "function" ? params.pop() : () => {};
 
   return new Promise((resolve, reject) => {
     db.each(
