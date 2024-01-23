@@ -3,7 +3,7 @@ import { SQLITE_CONSTRAINT, SQLITE_ERROR } from "../../lib/error-codes.js";
 import {
   eachAsPromise,
   runAsPromise,
-} from "../../lib/sqlite-promise-wrapper.js";
+} from "../../lib/sqlite-promise-wrappers.js";
 import {
   CREATE_BOOKS_TABLE_SQL,
   DROP_BOOKS_TABLE_SQL,

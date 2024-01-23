@@ -2,7 +2,7 @@ import sqlite3 from "sqlite3";
 import {
   eachAsPromise,
   runAsPromise,
-} from "../../lib/sqlite-promise-wrapper.js";
+} from "../../lib/sqlite-promise-wrappers.js";
 import {
   CREATE_BOOKS_TABLE_SQL,
   DROP_BOOKS_TABLE_SQL,
