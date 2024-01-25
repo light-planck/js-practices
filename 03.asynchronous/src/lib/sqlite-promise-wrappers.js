@@ -9,10 +9,15 @@ export const runAsPromise = (db, query, ...params) =>
     });
   });
 
-export const eachAsPromise = (db, query, ...args) => {
-  const params = args;
-  const callback =
-    typeof args[args.length - 1] === "function" ? params.pop() : () => {};
+export const eachAsPromise = (db, query, ...paramsAndCallback) => {
+  const params = [...paramsAndCallback];
+
+  let callback = () => {};
+  const lastParams = paramsAndCallback[paramsAndCallback.length - 1];
+  if (paramsAndCallback.length > 0 && typeof last === "function") {
+    callback = lastParams;
+    params.pop();
+  }
 
   return new Promise((resolve, reject) => {
     db.each(
