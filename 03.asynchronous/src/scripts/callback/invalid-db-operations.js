@@ -24,6 +24,7 @@ const main = () => {
           if (err) {
             console.error(err.message);
           }
+
           db.run(DROP_BOOKS_TABLE_SQL);
         },
       );
