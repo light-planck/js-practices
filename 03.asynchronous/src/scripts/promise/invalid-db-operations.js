@@ -23,9 +23,7 @@ const main = () => {
     .catch((err) => {
       console.error(err.message);
     })
-    .then(() => {
-      runAsPromise(db, DROP_BOOKS_TABLE_SQL);
-    });
+    .then(() => runAsPromise(db, DROP_BOOKS_TABLE_SQL));
 };
 
 main();
