@@ -10,19 +10,13 @@ export const runAsPromise = (db, query, ...params) =>
   });
 
 export const eachAsPromise = (db, query, ...paramsAndCallback) => {
-  const callback = (() => {
-    const lastParam = paramsAndCallback[paramsAndCallback.length - 1];
-    if (paramsAndCallback.length > 0 && typeof lastParam === "function") {
-      return lastParam;
-    } else {
-      return () => {};
-    }
-  })();
+  const lastParam = paramsAndCallback[paramsAndCallback.length - 1];
+  const hasCallback = typeof lastParam === "function";
 
-  const params =
-    callback === (() => {})
-      ? paramsAndCallback
-      : paramsAndCallback.slice(0, -1);
+  const callback = hasCallback ? lastParam : () => {};
+  const params = hasCallback
+    ? paramsAndCallback.slice(0, -1)
+    : paramsAndCallback;
 
   return new Promise((resolve, reject) => {
     db.each(
