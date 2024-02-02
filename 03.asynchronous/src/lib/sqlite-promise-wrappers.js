@@ -11,9 +11,9 @@ export const runAsPromise = (db, query, ...params) =>
 
 export const eachAsPromise = (db, query, ...paramsAndCallback) => {
   const callback = (() => {
-    const lastParams = paramsAndCallback[paramsAndCallback.length - 1];
+    const lastParam = paramsAndCallback[paramsAndCallback.length - 1];
     if (paramsAndCallback.length > 0 && typeof lastParams === "function") {
-      return lastParams;
+      return lastParam;
     }
 
     return () => {};
