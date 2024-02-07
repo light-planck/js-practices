@@ -1,0 +1,3 @@
+export const SQLITE_CONSTRAINT = "SQLITE_CONSTRAINT";
+
+export const SQLITE_ERROR = "SQLITE_ERROR";
